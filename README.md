@@ -1,6 +1,6 @@
 # kchoo-keep-doing
 
-A helper function for doing async things serially (probably obsolete with `async`/`await` inside loops)
+A helper function for looping async tasks (probably obsolete with `async`/`await` inside loops)
 
 ## Usage
 
