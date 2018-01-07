@@ -23,14 +23,14 @@ const numIterations = 10;
 keepDoing(
   function ({i}, deferred) {
     if (i === numIterations) {
-      deferred.reject({i});
+      deferred.reject(i);
     } else {
       deferred.resolve({
         i: i + 1
       });
     }
   },
-  function ({i}) {
+  function (i) {
     console.log(`Counted to ${i}`);
   },
   {
