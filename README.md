@@ -39,7 +39,7 @@ loopPromise.then(function (finalI) { console.log(`Performed ${finalI} iterations
 
 ## Drawbacks
 
-The way this is currently implemented, heap and stack space allocated for every iteration of the loop cannot be freed until the loop exits, which could lead to significant memory usage for large numbers of iterations.
+The way this is currently implemented, heap and stack space allocated for every iteration of the loop cannot be freed until the loop exits, which could lead to significant memory usage for large numbers of iterations. (Actually I'm re-working this to use generators, coming soon!)
 
 ## Coming soon
 
