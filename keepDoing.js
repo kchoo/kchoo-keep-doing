@@ -1,20 +1,34 @@
-module.exports = function keepDoing(fn, ...args) {
-	return new Promise(function (outerResolve, outerReject) {
-		(
-			new Promise(function (innerResolve, innerReject) {
-				fn(...args, innerResolve, innerReject);
-			})
-		).
-			then(
-				function (...updatedArgs) {
-					keepDoing(fn, updatedArgs);
-				},
-				// an inner rejection means we're done looping, so resolve the outer promise
-				// with whatever the output is
-				function (...output) {
-					outerResolve(...output);
-				}
-			);
-			// exceptions from fn will bubble up, and should be caught by whatever called keepDoing
-	});
+const $q = require('kchoo-q');
+
+module.exports = function keepDoing(fn, ...initialArgs) {
+	const outerDeferred = $q.defer();
+	let innerDeferred = $q.defer();
+
+	function next(...val) {
+		innerDeferred.promise.
+			then(function () {
+				fn(...val, next, stop);
+			}).
+			catch(outerDeferred.reject.bind(outerDeferred));
+
+		innerDeferred.resolve();
+
+		innerDeferred = $q.defer();
+	}
+
+	function stop(val) {
+		outerDeferred.resolve(val);
+	}
+
+	try {
+		fn(
+			...initialArgs,
+			next,
+			stop
+		);
+	} catch (e) {
+		outerDeferred.reject(e);
+	}
+
+	return outerDeferred.promise;
 };
