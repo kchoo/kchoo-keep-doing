@@ -15,7 +15,6 @@ It's a little complicated, the idea is:
 ```
 // function for counting from 0 to 10, in increments of 2, with 500 milliseconds between each number
 
-// note: not an npm package yet
 const keepDoing = require('kchoo-keep-doing');
 
 const numIterations = 10;
