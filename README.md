@@ -1,6 +1,12 @@
 # kchoo-keep-doing
 
-A helper function for looping async tasks (probably obsolete with `async`/`await` inside loops, but that isn't supported by AWS lambda functions yet)
+A helper function for looping async tasks (probably obsolete with `async`/`await` inside loops, but that isn't supported by AWS Lambda functions yet)
+
+## Installation
+
+```
+$ npm install kchoo-keep-doing
+```
 
 ## Usage
 
@@ -34,7 +40,10 @@ const loopPromise = keepDoing(
   0
 );
 
-loopPromise.then(function (finalI) { console.log(`Performed ${finalI} iterations`); });
+loopPromise.
+  then(function (finalI) {
+    console.log(`Performed ${finalI} iterations`);
+  });
 ```
 
 ## Coming soon
